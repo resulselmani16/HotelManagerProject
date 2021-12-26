@@ -5,27 +5,29 @@
     <title>Register Hotel Manager</title>
 </head>
 <body>
+<center>
+    <form action="/hotel/register-manager" method="post" th:object="${manager}">
     <label>
         Name:
-        <input type="text" />
+        <input th:field="${manager.firstName}" type="text" />
     </label> <br>
     <label>
         Last Name:
-        <input  type="text" />
+        <input th:field="${manager.lastName}" type="text" />
     </label> <br>
 
     <label>
         Email:
-        <input type="email" />
+        <input th:field="${manager.email}" type="email" />
     </label> <br>
 
     <label>
         Password:
-        <input type="password"/>
+        <input th:field="${manager.password}" type="password"/>
     </label> <br>
-    <button>
-        Register User
-    </button>
+        <input type="submit" value="Register" />
+    </form>
+</center>
 
 </body>
 </html>
