@@ -34,7 +34,7 @@ public class AuthController {
     @GetMapping("/register-manager")
     public String getRegister(Model model, HttpServletResponse response, HttpServletRequest request) throws IOException {
         if(utilityService.isManagerLoggedIn(request.getCookies())){
-            response.sendRedirect("/dashboard");
+            response.sendRedirect("/hotel/dashboard");
             return null;
         }
         model.addAttribute("manager", new HotelManager());
@@ -55,7 +55,7 @@ public class AuthController {
     @GetMapping("/manager-login")
     public String getLogin(Model model, HttpServletResponse response, HttpServletRequest request) throws IOException {
         if (utilityService.isManagerLoggedIn(request.getCookies())){
-            response.sendRedirect("/dashboard");
+            response.sendRedirect("/hotel/dashboard");
             return null;
         }
         model.addAttribute("loginModel", new ManagerLoginModel());
@@ -84,7 +84,21 @@ public class AuthController {
         Cookie sessionCookie = new Cookie("session_id", hotelManagerSession.getSessionHashCode());
         sessionCookie.setPath("/");
         response.addCookie(sessionCookie);
-        response.sendRedirect("/dashboard");
+        response.sendRedirect("/hotel/dashboard");
         return null;
     }
+
+    @GetMapping("/logout")
+    public void logout(HttpServletResponse response) throws IOException {
+        Cookie loggedInCookie = new Cookie("logged_in", "false");
+        loggedInCookie.setPath("/");
+        loggedInCookie.setMaxAge(0);
+        Cookie sessionIdCookie = new Cookie("session_id", "");
+        sessionIdCookie.setPath("/");
+        sessionIdCookie.setMaxAge(0);
+        response.addCookie(loggedInCookie);
+        response.addCookie(sessionIdCookie);
+        response.sendRedirect("/hotel/manager-login");
+    }
+
 }

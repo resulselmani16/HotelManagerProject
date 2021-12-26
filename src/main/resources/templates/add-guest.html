@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            overflow: hidden;
+        }
+
+        ul {
+            display: flex;
+            width: 90%;
+            justify-content: space-around;
+            margin: 0 auto;
+        }
+
+        li {
+            list-style: none !important;
+        }
+    </style>
+
+<!--    <script>-->
+<!--        function printo(){-->
+<!--            window.print();-->
+<!--        }-->
+
+<!--        <button onClick="printo()">Printo</button>-->
+<!--    </script>-->
+</head>
+<body>
+<ul>
+    <li>
+        <a href="/hotel/dashboard">Dashboard</a>
+    </li>
+    <li>
+        <a href="/hotel/add-guest">Regjistro musafiret</a>
+    </li>
+    <li>
+        <a href="/hotel/add-room">Shto dhoma</a>
+
+    <li>
+        <a href="/hotel/add-reservation">Shto rezervim</a>
+    </li>
+    <li>
+        <a href="/hotel/logout">Log out</a>
+    </li>
+</ul>
+
+<center>
+<h1>Regjistro musafiret</h1>
+
+    <form th:action="${addGuest}" th:object="${guest}">
+        <label> Emri i musafirit:
+            <input th:field="${guest.name}" type="text" />
+        </label> <br>
+        <label>
+            Mbiemri i musafirit
+            <input th:field="${guest.lastName}" type="text">
+        </label><br>
+        <label>
+            Mosha:
+            <input th:field="${guest.age}" type="number">
+        </label> <br>
+        <input type="submit" value="Regjistro musafirin">
+    </form>
+</center>
+</body>
+</html>
