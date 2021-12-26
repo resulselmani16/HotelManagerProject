@@ -1,8 +1,10 @@
 package com.example.hotelmanagerproject.Controller;
 
 import com.example.hotelmanagerproject.Model.HotelManager;
+import com.example.hotelmanagerproject.Model.HotelManagerSession;
 import com.example.hotelmanagerproject.Model.ManagerLoginModel;
 import com.example.hotelmanagerproject.Repository.HotelManagerRepository;
+import com.example.hotelmanagerproject.Repository.HotelManagerSessionRepository;
 import com.example.hotelmanagerproject.service.UtilityService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +22,12 @@ import java.io.IOException;
 @RequestMapping("/hotel")
 public class AuthController {
     private final HotelManagerRepository hotelManagerRepository;
-    public AuthController(HotelManagerRepository hotelManagerRepository){
+    private final HotelManagerSessionRepository hotelManagerSessionRepository;
+    private final UtilityService utilityService;
+    public AuthController(HotelManagerRepository hotelManagerRepository, HotelManagerSessionRepository hotelManagerSessionRepository, UtilityService utilityService){
         this.hotelManagerRepository = hotelManagerRepository;
+        this.hotelManagerSessionRepository = hotelManagerSessionRepository;
+        this.utilityService = utilityService;
     }
 
 
