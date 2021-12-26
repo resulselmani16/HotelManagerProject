@@ -32,7 +32,11 @@ public class AuthController {
 
 
     @GetMapping("/register-manager")
-    public String getRegister(Model model, HttpServletResponse response, HttpServletRequest request){
+    public String getRegister(Model model, HttpServletResponse response, HttpServletRequest request) throws IOException {
+        if(utilityService.isManagerLoggedIn(request.getCookies())){
+            response.sendRedirect("/dashboard");
+            return null;
+        }
         model.addAttribute("manager", new HotelManager());
         return "register";
     }
@@ -49,7 +53,11 @@ public class AuthController {
     }
 
     @GetMapping("/manager-login")
-    public String getLogin(Model model, HttpServletResponse response, HttpServletRequest request){
+    public String getLogin(Model model, HttpServletResponse response, HttpServletRequest request) throws IOException {
+        if (utilityService.isManagerLoggedIn(request.getCookies())){
+            response.sendRedirect("/dashboard");
+            return null;
+        }
         model.addAttribute("loginModel", new ManagerLoginModel());
         model.addAttribute("loginAction", "/hotel/manager-login");
         return "login";
@@ -68,6 +76,14 @@ public class AuthController {
         Cookie cookie = new Cookie("logged_in", "true");
         cookie.setPath("/");
         response.addCookie(cookie);
+        HotelManagerSession hotelManagerSession = new HotelManagerSession();
+        hotelManagerSession.setHotelManager(loggedManager);
+        hotelManagerSession.setSessionHashCode(utilityService.generateRandomString(20));
+        hotelManagerSession.setIpAddress(request.getRemoteAddr());
+        hotelManagerSessionRepository.save(hotelManagerSession);
+        Cookie sessionCookie = new Cookie("session_id", hotelManagerSession.getSessionHashCode());
+        sessionCookie.setPath("/");
+        response.addCookie(sessionCookie);
         response.sendRedirect("/dashboard");
         return null;
     }
