@@ -4,17 +4,22 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        body{
+        body {
             overflow: hidden;
         }
-        ul{
+
+        ul {
             display: flex;
             width: 90%;
             justify-content: space-around;
             margin: 0 auto;
         }
-        li{
+
+        li {
             list-style: none !important;
+        }
+        input{
+            margin: 1% auto;
         }
     </style>
 </head>
@@ -37,6 +42,20 @@
     </li>
 </ul>
 
-<h1>Add Room</h1>
+<center>
+    <h1>Shto dhome</h1> <br>
+
+    <form method="post" action="/manager/add-room" th:object="${room}">
+        <label>
+            Nr Dhomes:
+            <input th:field="${room.roomNum}" type="number" />
+        </label> <br>
+        <label>
+            Kapaciteti
+            <input th:field="${room.capacity}"  type="number">
+        </label> <br>
+        <input type="submit" value="Shto dhomen">
+    </form>
+</center>
 </body>
 </html>

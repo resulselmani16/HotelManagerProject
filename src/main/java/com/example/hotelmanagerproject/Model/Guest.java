@@ -12,7 +12,7 @@ public class Guest {
     private Long id;
     private String name;
     private String lastName;
-    private int age;
+    private String age;
 
 
     public String getName() {
@@ -31,11 +31,11 @@ public class Guest {
         this.lastName = lastName;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
@@ -43,7 +43,6 @@ public class Guest {
         this.id = id;
     }
 
-    @Id
     public Long getId() {
         return id;
     }

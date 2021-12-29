@@ -8,10 +8,7 @@ import com.example.hotelmanagerproject.Repository.HotelManagerSessionRepository;
 import com.example.hotelmanagerproject.service.UtilityService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +21,9 @@ public class AuthController {
     private final HotelManagerRepository hotelManagerRepository;
     private final HotelManagerSessionRepository hotelManagerSessionRepository;
     private final UtilityService utilityService;
-    public AuthController(HotelManagerRepository hotelManagerRepository, HotelManagerSessionRepository hotelManagerSessionRepository, UtilityService utilityService){
+
+    public AuthController(HotelManagerRepository hotelManagerRepository, HotelManagerSessionRepository hotelManagerSessionRepository,
+                          UtilityService utilityService) {
         this.hotelManagerRepository = hotelManagerRepository;
         this.hotelManagerSessionRepository = hotelManagerSessionRepository;
         this.utilityService = utilityService;
@@ -33,7 +32,7 @@ public class AuthController {
 
     @GetMapping("/register-manager")
     public String getRegister(Model model, HttpServletResponse response, HttpServletRequest request) throws IOException {
-        if(utilityService.isManagerLoggedIn(request.getCookies())){
+        if (utilityService.isManagerLoggedIn(request.getCookies())) {
             response.sendRedirect("/hotel/dashboard");
             return null;
         }
@@ -42,9 +41,9 @@ public class AuthController {
     }
 
     @PostMapping("/register-manager")
-    public String postRegister(@ModelAttribute HotelManager hotelManager, Model model){
+    public String postRegister(@ModelAttribute HotelManager hotelManager, Model model) {
         HotelManager existingHotelManager = this.hotelManagerRepository.findByEmail(hotelManager.getEmail());
-        if (existingHotelManager != null){
+        if (existingHotelManager != null) {
             model.addAttribute("manager", hotelManager);
             model.addAttribute("error", "The email you entered is already on use");
         }
@@ -54,7 +53,7 @@ public class AuthController {
 
     @GetMapping("/manager-login")
     public String getLogin(Model model, HttpServletResponse response, HttpServletRequest request) throws IOException {
-        if (utilityService.isManagerLoggedIn(request.getCookies())){
+        if (utilityService.isManagerLoggedIn(request.getCookies())) {
             response.sendRedirect("/hotel/dashboard");
             return null;
         }
@@ -65,8 +64,9 @@ public class AuthController {
 
     @PostMapping("/manager-login")
     public String postLogin(@ModelAttribute ManagerLoginModel managerLoginModel, Model model, HttpServletResponse response, HttpServletRequest request) throws IOException {
-        HotelManager loggedManager = this.hotelManagerRepository.findByEmailAndPassword(managerLoginModel.getUsername(), managerLoginModel.getPassword());
-        if(loggedManager == null){
+        HotelManager loggedManager = this.hotelManagerRepository.findByEmailAndPassword
+                (managerLoginModel.getUsername(), managerLoginModel.getPassword());
+        if (loggedManager == null) {
             model.addAttribute("error", "Credentials are wrong");
             model.addAttribute("loginModel", new ManagerLoginModel());
             model.addAttribute("loginAction", "/hotel/manager-login");
