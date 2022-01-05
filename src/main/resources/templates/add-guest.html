@@ -31,16 +31,16 @@
 <body>
 <ul>
     <li>
-        <a href="/hotel/dashboard">Dashboard</a>
+        <a href="/manager/dashboard">Dashboard</a>
     </li>
     <li>
-        <a href="/hotel/add-guest">Regjistro musafiret</a>
+        <a href="/manager/add-guest">Regjistro musafiret</a>
     </li>
     <li>
-        <a href="/hotel/add-room">Shto dhoma</a>
+        <a href="/manager/add-room">Shto dhoma</a>
 
     <li>
-        <a href="/hotel/add-reservation">Shto rezervim</a>
+        <a href="/manager/add-reservation">Shto rezervim</a>
     </li>
     <li>
         <a href="/hotel/logout">Log out</a>
@@ -50,7 +50,7 @@
 <center>
 <h1>Regjistro musafiret</h1>
 
-    <form th:action="${addGuest}" th:object="${guest}">
+    <form method="post" action="/manager/add-guest" th:object="${guest}">
         <label> Emri i musafirit:
             <input th:field="${guest.name}" type="text" />
         </label> <br>

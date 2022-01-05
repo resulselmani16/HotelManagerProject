@@ -33,7 +33,7 @@ public class AuthController {
     @GetMapping("/register-manager")
     public String getRegister(Model model, HttpServletResponse response, HttpServletRequest request) throws IOException {
         if (utilityService.isManagerLoggedIn(request.getCookies())) {
-            response.sendRedirect("/hotel/dashboard");
+            response.sendRedirect("/manager/dashboard");
             return null;
         }
         model.addAttribute("manager", new HotelManager());
@@ -54,7 +54,7 @@ public class AuthController {
     @GetMapping("/manager-login")
     public String getLogin(Model model, HttpServletResponse response, HttpServletRequest request) throws IOException {
         if (utilityService.isManagerLoggedIn(request.getCookies())) {
-            response.sendRedirect("/hotel/dashboard");
+            response.sendRedirect("/manager/dashboard");
             return null;
         }
         model.addAttribute("loginModel", new ManagerLoginModel());
@@ -84,7 +84,7 @@ public class AuthController {
         Cookie sessionCookie = new Cookie("session_id", hotelManagerSession.getSessionHashCode());
         sessionCookie.setPath("/");
         response.addCookie(sessionCookie);
-        response.sendRedirect("/hotel/dashboard");
+        response.sendRedirect("/manager/dashboard");
         return null;
     }
 

@@ -39,12 +39,14 @@ public class DashboardController {
     }
 
     @PostMapping("/add-guest")
-    public String postGuest(@ModelAttribute Guest guest, Model model) {
-        model.addAttribute("guest", guest);
+    public String postAddRoom(@ModelAttribute Guest guest, Model model,
+                              HttpServletResponse response, HttpServletRequest request){
+        model.addAttribute("room", guest);
         model.addAttribute("addGuest", "/manager/view-guests");
         this.guestRepository.save(guest);
         return "view-guests";
     }
+
 
     @GetMapping("/view-guests")
     public String viewGuests() {
@@ -71,5 +73,4 @@ public class DashboardController {
         this.roomRepository.save(room);
         return "view-rooms";
     }
-
 }
